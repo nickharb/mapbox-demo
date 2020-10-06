@@ -1,0 +1,110 @@
+/**
+ * Mapbox Demo
+ *
+ * Copyright 2020 Seven Mile Media
+ * Created by Seven Mile Media
+ * http://sevenmilemedia.com/
+ */
+
+/* ==========================================================================
+    Base styles
+   ========================================================================== */
+
+html {
+    
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #222;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+    Typography
+   ========================================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+    color: #000;
+    font-weight: 700;
+}
+
+p {
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    font-weight: 400;
+    color: #222;
+}
+
+@media screen and (min-width: 768px) {
+    p {
+        font-size: 16px;
+    }
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    color: #1E90FF;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #1E90FF;
+}
+
+a:hover {
+    color: #00BFFF;
+}
+
+a:active {
+    color: #00BFFF;
+}
+
+/* ==========================================================================
+    Layout
+   ========================================================================== */
+
+.content {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+/* ==========================================================================
+    Media query examples
+   ========================================================================== */
+
+@media only screen and (min-width: 480px) {
+    /* Mobile */
+}
+
+@media only screen and (min-width: 768px) {
+    /* Tablet */
+}
+
+@media only screen and (min-width: 1024px) {
+    /* Laptop */
+}
+
+
+
+
