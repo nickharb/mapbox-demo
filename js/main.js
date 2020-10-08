@@ -20,46 +20,47 @@
         });
 
         map.on('load', function() {
-            map.addSource('contaminated-sites-src', {
-                type: 'geojson',
-                data: 'data/features.geojson'
-            });
+            // map.addSource('contaminated-sites-src', {
+            //     type: 'vector',
+            //     data: 'mapbox://nickharb.ckfzwwk5a186t24pmcuy26c84-7otzr'
+            // });
 
-            map.addLayer({
-                'id': 'contaminated-sites',
-                'type': 'circle',
-                'source': 'contaminated-sites-src',
-                'paint': {
-                    'circle-radius': [
-                        "interpolate",
-                        ["linear"],
-                        ["zoom"],
-                        11,
-                        3,
-                        16,
-                        15
-                    ],
-                    'circle-color': [
-                        "match",
-                        ["get", "WORK_GROUP"],
-                        ["UT        "],
-                        "#41b6c4",
-                        ["SW        "],
-                        "#225ea8",
-                        ["ARP       "],
-                        "#c7e9b4",
-                        ["IW        "],
-                        "#1d91c0",
-                        ["IW5       "],
-                        "#0c2c84",
-                        ["HWR       "],
-                        "#7fcdbb",
-                        ["AW        "],
-                        "#ffffcc",
-                        "hsl(0, 98%, 48%)"
-                    ]
-                }
-            });
+            // map.addLayer({
+            //     'id': 'contaminated-sites',
+            //     'type': 'circle',
+            //     'source': 'contaminated-sites-src',
+            //     'source-layer': 'Miami-Dade_County_Contaminated_S',
+            //     'paint': {
+            //         'circle-radius': [
+            //             "interpolate",
+            //             ["linear"],
+            //             ["zoom"],
+            //             11,
+            //             3,
+            //             16,
+            //             15
+            //         ],
+            //         'circle-color': [
+            //             "match",
+            //             ["get", "WORK_GROUP"],
+            //             ["UT        "],
+            //             "#41b6c4",
+            //             ["SW        "],
+            //             "#225ea8",
+            //             ["ARP       "],
+            //             "#c7e9b4",
+            //             ["IW        "],
+            //             "#1d91c0",
+            //             ["IW5       "],
+            //             "#0c2c84",
+            //             ["HWR       "],
+            //             "#7fcdbb",
+            //             ["AW        "],
+            //             "#ffffcc",
+            //             "hsl(0, 98%, 48%)"
+            //         ]
+            //     }
+            // });
 
             // map.addLayer({
             //     'id': 'contaminated-sites-combined',
@@ -128,23 +129,42 @@
 
         // When a click event occurs on a feature in the layer, open a popup at the
         // location of the click, with description HTML from its properties
-        map.on('click', 'contaminated-sites', function (e) {
-            console.log(e.features[0]);
-            new mapboxgl.Popup()
-                .setLngLat(e.lngLat)
-                .setHTML('<h3>' + e.features[0].properties.TASK_NAME + '</h3>' + '<p>Work Group: ' + e.features[0].properties.WORK_GROUP + '</p>' + '<p>Address: ' + e.features[0].properties.SITE_ADDRESS + '</p>' + '<p>Description: ' + e.features[0].properties.PHASE_DESCRIPTION + '</p>')
+        // map.on('click', 'contaminated-sites', function (e) {
+        //     console.log(e.features[0]);
+        //     new mapboxgl.Popup()
+        //         .setLngLat(e.lngLat)
+        //         .setHTML('<h3>' + e.features[0].properties.TASK_NAME + '</h3>' + '<p>Work Group: ' + e.features[0].properties.WORK_GROUP + '</p>' + '<p>Address: ' + e.features[0].properties.SITE_ADDRESS + '</p>' + '<p>Description: ' + e.features[0].properties.PHASE_DESCRIPTION + '</p>')
+        //         .addTo(map);
+        // });
+
+        map.on('click', function(e) {
+            var features = map.queryRenderedFeatures(e.point, {
+                layers: ['miami-dade-county-contaminated-s'] // replace this with the name of the layer
+            });
+
+            if (!features.length) {
+                return;
+            }
+
+            var feature = features[0];
+
+            console.log(feature)
+
+            var popup = new mapboxgl.Popup({ offset: [0, -15] })
+                .setLngLat(feature.geometry.coordinates)
+                .setHTML('<h3>' + feature.properties.TASK_NAME + '</h3>' + '<p>Work Group: ' + feature.properties.WORK_GROUP + '</p>' + '<p>Address: ' + feature.properties.SITE_ADDRESS + '</p>' + '<p>Description: ' + feature.properties.PHASE_DESCRIPTION + '</p>')
                 .addTo(map);
         });
 
         // Change the cursor to a pointer when the mouse is over the states layer
-        map.on('mouseenter', 'contaminated-sites', function () {
-            map.getCanvas().style.cursor = 'pointer';
-        });
+        // map.on('mouseenter', 'contaminated-sites', function () {
+        //     map.getCanvas().style.cursor = 'pointer';
+        // });
          
-        // Change it back to a pointer when it leaves
-        map.on('mouseleave', 'contaminated-sites', function () {
-            map.getCanvas().style.cursor = '';
-        });
+        // // Change it back to a pointer when it leaves
+        // map.on('mouseleave', 'contaminated-sites', function () {
+        //     map.getCanvas().style.cursor = '';
+        // });
 
         // Flyover event handlers
         $('#downtown-miami').click(function() {
