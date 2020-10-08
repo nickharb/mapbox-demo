@@ -22,7 +22,7 @@
         map.on('load', function() {
             map.addSource('contaminated-sites-src', {
                 type: 'geojson',
-                data: 'data/contaminated-sites-1.geojson'
+                data: 'data/features.geojson'
             });
 
             map.addLayer({
